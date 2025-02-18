@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+#.env
+.env
+#pycharm
+.idea/
+#vscode
+.vscode/
+## code related files
+api_recommendations/
+## browser_data_X
+config.py
+browser_storage/
+##requests
+requests/
+##dump folders
+screenshots/
+runs/
+streams/
+temp.log
+#logs
+parallel_runner.log
+

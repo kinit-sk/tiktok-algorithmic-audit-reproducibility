@@ -1,0 +1,187 @@
+# Revisiting Algorithmic Audits of TikTok: Poor Reproducibility and Short-term Validity of Findings
+
+---
+
+This repository contains supplementary material for the paper Revisiting Algorithmic Audits of TikTok: Poor Reproducibility
+and Short-term Validity of Findings
+
+---
+
+## Citing the paper
+TBA
+
+---
+## Abstract
+
+Social media platforms are shifting towards algorithmically curated content based on implicit or explicit user feedback while focusing more and more on short-format content. Regulators, as well as researchers, are calling for systematic social media algorithmic audits
+as this shift leads to enclosing users in filter bubbles and leading
+them to more problematic content. An important aspect of such
+audits is the reproducibility and generalisability of their findings, as
+it allows to draw verifiable conclusions and audit potential changes
+in algorithms over time. In this work, we study the reproducibility of the existing audits of recommender systems in the popular
+platform TikTok, and the generalizability of their findings. In our
+efforts to reproduce the previous works, we find multiple challenges
+stemming from social media platform changes and content evolution, but also the works themselves. These drawbacks limit the
+audit reproducibility and require an extensive effort altogether with
+inevitable adjustments to the auditing methodology. Our experiments also reveal that the audit findings often hold only in the
+short term, implying that the reproducibility and generalizability
+of the audits heavily depend on the methodological choices and the
+state of algorithms and content on the platform. This highlights
+the importance of longitudinal audits that allow us to determine how the situation changes in time, instead of the current practice of one-shot audits.
+
+**[About us](https://kinit.sk/)**  
+Repository for replicating the **[Investigation of Personalization Factors on TikTok](https://arxiv.org/abs/2201.12271)** with the **[nodriver](https://github.com/ultrafunkamsterdam/nodriver)** approach.
+
+This codebase has been checked and formatted using **[Pylint](https://pylint.readthedocs.io/en/stable/)** for code quality, **[Black](https://github.com/psf/black)** for consistent code formatting, and **[isort](https://pycqa.github.io/isort/)** for imports organizing.
+
+## Requirements
+
+- Python 3.12+
+- Git
+- nodriver
+- package manager (conda, uv)
+- install the requirements
+
+## Quick start
+
+1. Clone the repository
+2. Install the requirements (requirements.txt)
+3. Configure scenarios in scenario_configs.py
+4. Run parallel scraping with:
+```bash
+python parallel_runner.py
+```
+
+## Project structure
+```
+└── 📁nodriver
+    └── 📁common
+        └── proxy_auth.py
+        └── response_utils.py
+    └── 📁runs
+        └── 📁scenario_{scenario_id} -> Scenario folder
+            └── 📁{test_run_id} -> Test run ID
+                └── 📁invalid_jsons -> if we were unable to parse a .json
+                └── 📁logs
+                    └── run_{user_id}.log -> User-specific log file
+                └── 📁requests -> .json files containing all requests
+                └── 📁responses -> .json files containing all responses
+                └── 📁screenshots -> screenshot of every post
+                └── 📁streams_ads -> screenshots of streams and ads
+                └── 📁invalid_jsons -> .json files that were not parsed correctly
+                └── 📁interactions -> .json files containing all interactions (likes, follows, etc.)
+    └── 📁scraper
+        └── fyp_browser.py
+        └── tiktok_login.py
+        └── tiktok_network_interceptor.py
+        └── video_action_handler.py
+    └── 📁Analysis
+        └── 📁Data
+            └── 📁{scenario_id}
+                └── 📁{test_run_id}
+                    └── 📁{user_id}
+                        └── 📁interactions
+                        └── 📁responses
+        └── analysis.ipynb
+    └── scenario_configs.py
+    └── parallel_runner.py
+    └── main.py
+```
+
+## scenario_configs.py example
+```python
+SCENARIOS = {
+    151.1: {
+        "proxy": {
+            "host": "proxy_host", # proxy host
+            "port": "proxy_port", # proxy port
+            "username": "proxy_username", # proxy username
+            "password": "proxy_password" # proxy password
+        },
+        "users": {
+            user_id: {  # User ID
+                "email": "user@example.com", # TikTok email
+                "password": "user_pass", # TikTok password
+                "settings": {
+                    "USE_PROXY": True, # Use proxy
+                    "USE_LOGIN": True, # Use login
+                    "REUSE_COOKIES": False, # Reuse cookies
+                    "COUNTRY": "United States", # Country
+                    "NUM_BATCHES": 3000, # Number of batches
+                    "MAX_VIDEOS": 250, # Maximum number of videos
+                    "MAX_WATCHTIME": 120, # Maximum watch time in seconds
+                    "HASHTAGS_WATCH_LONGER_MAXWATCHTIME": 240 # Maximum watch time for hashtags to watch longer
+                    "RANDOM_WATCH_MAXWATCHTIME": 120 # Maximum watch time for random videos scenario
+                },
+                "profile": {
+                    "HASHTAGS_TO_LIKE": [], # Hashtags to like
+                    "HASHTAGS_TO_FOLLOW": [], # Hashtags to follow
+                    "WATCH_COEFFICIENT_WITH_HASHTAGS": 1, # Watch coefficient with hashtags
+                    "WATCH_COEFFICIENT_NO_HASHTAGS": 1, # Watch coefficient without hashtags
+                    "RANDOM_AUTHORS_TO_FOLLOW": 0, # Random authors to follow
+                    "RANDOM_POSTS_TO_LIKE": 0, # Random posts to like
+                    "RANDOM_VIDEOS_TO_WATCH": 0, # Random videos to watch
+                    "RANDOM_WATCH_COEFFICIENT": 1.0, # Random watch coefficient
+                    "USERNAMES_TO_FOLLOW": [], # Usernames to follow
+                    "USERNAMES_TO_LIKE": [], # Usernames to like
+                    "HASHTAGS_WATCH_LONGER": [], # Hashtags to watch longer
+                    "HASHTAGS_WATCH_LONGER_COEFFICIENT": 1, # Hashtags watch longer coefficient
+                }
+            }
+        }
+    }
+}
+```
+
+## Key Features
+
+1. **Parallel Execution**
+   - Runs multiple TikTok scraping instances simultaneously
+   - Each instance has its own configuration and scenario
+   - Configurable delay between instance starts
+
+2. **Scenario-Based Configuration**
+   - Each scenario has its own proxy settings
+   - User-specific settings for each scenario
+   - Flexible configuration of interaction behaviors
+
+3. **Network Interception & Data Collection**
+   - Captures TikTok's network events
+   - Stores requests and responses in scenario-specific folders
+   - Takes screenshots of posts, streams, and ads
+
+4. **User Actions**
+   - Configurable video watching durations
+   - Optional liking and following behaviors
+   - Support for hashtag-based interactions
+
+5. **Logging System**
+   - Separate log files for each parallel run
+   - Scenario-specific folder structure
+   - Detailed logging of all actions and events
+
+6. **Error Handling**
+   - Graceful handling of failed runs
+   - Invalid JSON storage for debugging
+   - Automatic cleanup of temporary files
+
+## Running Multiple Scenarios
+
+To run multiple scenarios in parallel:
+
+1. Define scenarios in scenario_configs.py
+2. Configure the runs in parallel_runner.py:
+```python
+runs = [
+    (151.1, 3),  # (scenario_id, user_id) from scenario_configs.py
+    (151.2, 5),
+    (9.1, 1),
+    (9.2, 2)
+]
+```
+3. Run with:
+```bash
+python parallel_runner.py
+```
+
+Each scenario will run in parallel with its own configuration and store data in its respective folder.
