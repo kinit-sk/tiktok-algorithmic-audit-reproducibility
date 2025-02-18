@@ -194,3 +194,12 @@ python parallel_runner.py
 ```
 
 Each scenario will run in parallel with its own configuration and store data in its respective folder.
+
+## Jupyter notebooks descriptions
+- **hashtags_interactions.ipynb**:  Analyzes target hashtags in experimental vs. control groups
+
+- **nicknames_interactions.ipynb**:  Examines nickname occurrences in experimental vs. control groups
+
+- **random_similarity.ipynb**:  Measures hashtag similarity between experimental and control groups using bucket-based comparisons
+
+---
