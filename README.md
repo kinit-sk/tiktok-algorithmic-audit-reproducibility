@@ -196,6 +196,8 @@ python parallel_runner.py
 Each scenario will run in parallel with its own configuration and store data in its respective folder.
 
 ## Jupyter notebooks descriptions
+- **main_analysis.ipynb**: Consists of analysis to measure noise and location impact and analysis to compare feeds similarities (control vs. personalized, beginning vs. end, etc.)
+
 - **hashtags_interactions.ipynb**:  Analyzes target hashtags in experimental vs. control groups
 
 - **nicknames_interactions.ipynb**:  Examines nickname occurrences in experimental vs. control groups
