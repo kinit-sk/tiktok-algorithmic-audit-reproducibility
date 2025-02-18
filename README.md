@@ -29,6 +29,9 @@ of the audits heavily depend on the methodological choices and the
 state of algorithms and content on the platform. This highlights
 the importance of longitudinal audits that allow us to determine how the situation changes in time, instead of the current practice of one-shot audits.
 
+# Disclaimer
+The code provided in this repository is made available for exploratory and replicative research purposes. Due to ongoing modifications to the TikTok web application and the evolving platform, some components may not function as intended without further modifications. Users are advised that periodic updates and adjustments might be necessary to maintain compatibility with the current state of the platform.
+
 **[About us](https://kinit.sk/)**  
 Repository for replicating the **[Investigation of Personalization Factors on TikTok](https://arxiv.org/abs/2201.12271)** with the **[nodriver](https://github.com/ultrafunkamsterdam/nodriver)** approach.
 
