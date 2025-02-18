@@ -32,8 +32,6 @@ the importance of longitudinal audits that allow us to determine how the situati
 **[About us](https://kinit.sk/)**  
 Repository for replicating the **[Investigation of Personalization Factors on TikTok](https://arxiv.org/abs/2201.12271)** with the **[nodriver](https://github.com/ultrafunkamsterdam/nodriver)** approach.
 
-This codebase has been checked and formatted using **[Pylint](https://pylint.readthedocs.io/en/stable/)** for code quality, **[Black](https://github.com/psf/black)** for consistent code formatting, and **[isort](https://pycqa.github.io/isort/)** for imports organizing.
-
 ## Requirements
 
 - Python 3.12+
@@ -58,7 +56,15 @@ python parallel_runner.py
     └── 📁common
         └── proxy_auth.py
         └── response_utils.py
-    └── 📁runs
+    └── 📁data - our data gathered from the platform
+        └── 📁{scenario_id}
+            └── 📁{test_run_id}
+                └── 📁{user_id}
+                    └── 📁interactions
+                        └── {interaction_id}.json -> interaction data (likes, follows, etc.)
+                    └── 📁responses
+                        └── {response_id}.json -> response data (posts, streams, ads)
+    └── 📁runs - storage for runs
         └── 📁scenario_{scenario_id} -> Scenario folder
             └── 📁{test_run_id} -> Test run ID
                 └── 📁invalid_jsons -> if we were unable to parse a .json
@@ -107,7 +113,7 @@ SCENARIOS = {
                     "USE_LOGIN": True, # Use login
                     "REUSE_COOKIES": False, # Reuse cookies
                     "COUNTRY": "United States", # Country
-                    "NUM_BATCHES": 3000, # Number of batches
+                    "NUM_BATCHES": 3000, # Maximum number of batches - we suggest to keep this high and set MAX_VIDEOS to a specific number as size of batches varies
                     "MAX_VIDEOS": 250, # Maximum number of videos
                     "MAX_WATCHTIME": 120, # Maximum watch time in seconds
                     "HASHTAGS_WATCH_LONGER_MAXWATCHTIME": 240 # Maximum watch time for hashtags to watch longer
@@ -136,12 +142,12 @@ SCENARIOS = {
 ## Key Features
 
 1. **Parallel Execution**
-   - Runs multiple TikTok scraping instances simultaneously
+   - Runs multiple TikTok scraping instances simultaneously - we tested up to 4 instances at the same time
    - Each instance has its own configuration and scenario
-   - Configurable delay between instance starts
+   - Configurable delay between instance starts - to deal with issues during logging manually if necessary
 
 2. **Scenario-Based Configuration**
-   - Each scenario has its own proxy settings
+   - Each scenario has its own proxy settings - we used [webshare](https://webshare.io/) proxies
    - User-specific settings for each scenario
    - Flexible configuration of interaction behaviors
 
