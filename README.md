@@ -61,12 +61,17 @@ python parallel_runner.py
         └── response_utils.py
     └── 📁data - our data gathered from the platform
         └── 📁{scenario_id}
-            └── 📁{test_run_id}
-                └── 📁{user_id}
+           └── 📁{scenario_id}-{user_type} (e.g., 9-control)
+                └── 📁{test_run_id}
                     └── 📁interactions
                         └── {interaction_id}.json -> interaction data (likes, follows, etc.)
                     └── 📁responses
                         └── {response_id}.json -> response data (posts, streams, ads)
+    └── 📁notebooks
+        └── hashtags_interactions.ipynb
+        └── main_analysis.ipynb
+        └── nicknames_interactions.ipynb
+        └── random_similarity.ipynb
     └── 📁runs - storage for runs
         └── 📁scenario_{scenario_id} -> Scenario folder
             └── 📁{test_run_id} -> Test run ID
@@ -79,21 +84,16 @@ python parallel_runner.py
                 └── 📁streams_ads -> screenshots of streams and ads
                 └── 📁invalid_jsons -> .json files that were not parsed correctly
                 └── 📁interactions -> .json files containing all interactions (likes, follows, etc.)
+    └── 📁scenarios -> folder with configs for scenarios
     └── 📁scraper
         └── fyp_browser.py
         └── tiktok_login.py
         └── tiktok_network_interceptor.py
         └── video_action_handler.py
-    └── 📁Analysis
-        └── 📁Data
-            └── 📁{scenario_id}
-                └── 📁{test_run_id}
-                    └── 📁{user_id}
-                        └── 📁interactions
-                        └── 📁responses
-        └── analysis.ipynb
+    └── config_loader.py
+    └── parallel_runner.py  
+    └── requirements.txt  
     └── scenario_configs.py
-    └── parallel_runner.py
     └── main.py
 ```
 
