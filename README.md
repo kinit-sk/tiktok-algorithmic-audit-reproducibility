@@ -59,7 +59,7 @@ python parallel_runner.py
     └── 📁common
         └── proxy_auth.py
         └── response_utils.py
-    └── 📁data - our data gathered from the platform
+    └── 📁data -> our data gathered from the platform
         └── 📁{scenario_id}
            └── 📁{scenario_id}-{user_type} (e.g., 9-control)
                 └── 📁{test_run_id}
@@ -67,6 +67,11 @@ python parallel_runner.py
                         └── {interaction_id}.json -> interaction data (likes, follows, etc.)
                     └── 📁responses
                         └── {response_id}.json -> response data (posts, streams, ads)
+    └── 📁 gdpr_analysis -> folder focusing on GDPR analysis
+        ├── data_mapping.ipynb -> jupyter notebook for analyzing GDPR data
+        ├── 📁 gdpr_data -> raw GDPR data for each user
+        ├── 📁 plots -> visualizations and charts generated from analysis
+        └── README.md -> detailed information about post-study GDPR data analysis
     └── 📁notebooks
         └── hashtags_interactions.ipynb
         └── main_analysis.ipynb
@@ -173,6 +178,10 @@ SCENARIOS = {
    - Graceful handling of failed runs
    - Invalid JSON storage for debugging
    - Automatic cleanup of temporary files
+
+7. **GDPR Data Analysis**
+    - Requested gdpr data from bot which were used in study
+    - Analysis of data which were provided
 
 ## Running Multiple Scenarios
 
